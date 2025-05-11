@@ -1,0 +1,202 @@
+.company-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    // font-family: "Helvetica", "Arial", sans-serif;
+    // background-color: #f8f9fa;
+    background-image: linear-gradient(rgba(240, 117, 117, 0.748), rgba(215, 215, 137, 0.715));
+    padding: 2rem;
+
+    &__header {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        &>.company-register__logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0077ff;
+            /* Your brand color */
+        }
+
+        &>.company-register__login-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__main {
+        width: 100%;
+        max-width: 400px;
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &__title {
+        margin: 0;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        font-size: 1.75rem;
+        color: #333;
+    }
+
+    &__subtitle {
+        margin: 0;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #777;
+    }
+
+    &__toggle {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+    }
+
+    &__toggle-button {
+        flex: 1;
+        margin: 0 0.25rem;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        font-weight: 500;
+        cursor: pointer;
+
+        &--active {
+            background-color: #0077ff;
+            color: #fff;
+            border-color: #0077ff;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+
+        &-group {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        &-input {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font: inherit;
+        }
+
+        &-terms {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+
+            &-label {
+                margin-left: 0.5rem;
+                color: #333;
+
+                a {
+                    color: #0077ff;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .company-register__form-checkbox {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+
+    &__submit-button {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #0077ff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 1rem;
+
+        &:hover {
+            background-color: #005fcf;
+        }
+    }
+
+    &__social-signup {
+        text-align: center;
+
+        &>p {
+            margin: 1rem 0;
+            color: #777;
+        }
+
+        &>.company-register__social-button {
+            display: block;
+            width: 100%;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+
+            &--google {
+                background-color: #db4437;
+                color: #fff;
+            }
+
+            &--linkedin {
+                background-color: #0077b5;
+                color: #fff;
+            }
+
+            &--facebook {
+                background-color: #3b5998;
+                color: #fff;
+            }
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+
+    &__footer {
+        text-align: center;
+        font-size: 0.875rem;
+        color: #555;
+
+        a {
+            color: #0077ff;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
