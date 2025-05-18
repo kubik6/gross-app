@@ -9,7 +9,7 @@ const Footer:React.FC = () => {
     <footer className="footer">
       <div className="footer__top">
         <div className="footer__column">
-          <h4 className="footer__column-title">Hellojob.az</h4>
+          <h4 className="footer__column-title">Gross.az</h4>
           <ul className="footer__list">
             <li className="footer__list-item">
               <a href="#!" className="footer__link">Şirkətlər</a>
@@ -60,7 +60,7 @@ const Footer:React.FC = () => {
       <div className="footer__bottom">
         <div className="footer__bottom-left">
           <div className="footer__text">
-          &copy; 2025 Hellojob.az. Bütün hüquqlar qorunur.
+          &copy; 2025 Gross.az. Bütün hüquqlar qorunur.
           </div>
         </div>
         <div className="footer__bottom-right">

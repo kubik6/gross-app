@@ -7,20 +7,22 @@
     /* --- Top Section --- */
     &__top {
         display: flex;
-        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        // flex-wrap: wrap;
         gap: 2rem;
         margin-bottom: 2rem;
     }
 
     &__column {
-        flex: 1 1 200px;
+        // flex: 1 1 200px;
         min-width: 150px;
     }
 
     &__column-title {
-        font-size: 1.125rem;
+        font-size: 14px;
         margin-bottom: 1rem;
-        font-weight: 600;
+        font-weight: 400;
     }
 
     &__list {
@@ -30,6 +32,7 @@
     }
 
     &__list-item {
+        font-size: 12px;
         margin-bottom: 0.5rem;
     }
 
@@ -68,11 +71,23 @@
     }
 
     &__icon-box {
-        font-size:30px;
+        font-size: 30px;
         opacity: 0.8;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 10px;
+    }
+}
+
+@media (max-width: 426px) {
+    .footer__top {
+        flex-direction: column;
+    }
+
+    .footer__bottom {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
