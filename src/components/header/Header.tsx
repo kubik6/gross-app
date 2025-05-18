@@ -21,9 +21,9 @@ const Header: React.FC = () => {
     <>
       <div className='header-main'>
         <div className='header-main__left-box'>
-          <div className='header-main__logo' onClick={() => navigate('/')}>
+          {/* <div className='header-main__logo' onClick={() => navigate('/')}>
             LOGO
-          </div>
+          </div> */}
           <div className='header-main__navigate'>
             <ul>
               <li onClick={() => navigate('/')}>Vakansiyalar</li>
@@ -37,13 +37,16 @@ const Header: React.FC = () => {
           {/* <button onClick={signIn}>Qeydiyyat</button> */}
         </div>
       </div>
-      <div className='header-main__bottom-line'></div>
+      <div className='header-main__bottom-line'>
+        <h1>GROSS</h1>
+        <h3>Your path start here</h3>
+      </div>
     </>
   ) : (
     <>
      <header className="header">
       <div className="header__container">
-        <div className="header__logo">MyApp</div>
+        <div className="header__logo">Gross</div>
         <button className="header__menu-btn" onClick={toggleMenu} aria-label="Toggle menu">
           <span className="header__menu-icon"></span>
         </button>

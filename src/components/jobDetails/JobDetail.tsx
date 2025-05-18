@@ -32,18 +32,13 @@ const JobDetail: React.FC<JobDetailProps> = ({ vacancy }) => {
     <div className="job-detail">
       <div className="job-detail__header">
         <div className="job-detail__company">
-          <div className="job-detail__logo">{vacancy?.companyname.slice(0,2)}</div>
           <div className="job-detail__info">
             <h2 className="job-detail__name">{vacancy?.companyname}</h2>
           </div>
         </div>
-        <div className="job-detail__actions">
-          <button className="job-detail__apply-btn">Apply on company site</button>
-        </div>
       </div>
 
       <div className="job-detail__overview">
-        <h3 className="job-detail__title">Overview</h3>
         <ul className="job-detail__list">
           <li><strong>Role:</strong> {vacancy?.title}</li>
           <li><strong>Location:</strong> {vacancy?.location}</li>
@@ -54,6 +49,9 @@ const JobDetail: React.FC<JobDetailProps> = ({ vacancy }) => {
       <div className="job-detail__summary">
         <h3 className="job-detail__title">Position Summary</h3>
         <p>{vacancy?.description}</p>
+      </div>
+      <div>
+        <button className='job-detail__apply-btn'>Apply Now</button>
       </div>
     </div>
   );

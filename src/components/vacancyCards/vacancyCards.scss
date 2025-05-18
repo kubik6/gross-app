@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 .job-card-list {
     display: flex;
     flex-direction: column;
@@ -10,23 +12,26 @@
 
 /* Scrollbar Styles */
 .job-card-list::-webkit-scrollbar {
-    width: 6px; /* Thin scrollbar */
-  }
-  
-  .job-card-list::-webkit-scrollbar-track {
+    width: 6px;
+    /* Thin scrollbar */
+}
+
+.job-card-list::-webkit-scrollbar-track {
     background: transparent;
-  }
-  
-  .job-card-list::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* Light gray thumb */
+}
+
+.job-card-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    /* Light gray thumb */
     border-radius: 4px;
-  }
-  
-  /* Optional: Firefox support */
-  .job-card-list {
-    scrollbar-width: thin; /* For Firefox */
+}
+
+/* Optional: Firefox support */
+.job-card-list {
+    scrollbar-width: thin;
+    /* For Firefox */
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-  }
+}
 
 .job-card {
     display: flex;
@@ -36,10 +41,18 @@
     padding: 1rem;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
     position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
 
     &--active {
-        border-left: 4px solid #007bff;
-        background-color: #f9fbff;
+        border-left: 4px solid $primary-color;
+        background-color: $selected-color;
     }
 
     &__logo {
@@ -64,6 +77,7 @@
         font-size: 1rem;
         font-weight: 600;
         color: #2b2b2b;
+        padding-bottom: 10px;
     }
 
     &__company {
@@ -81,6 +95,11 @@
     &__info-box {
         display: flex;
         justify-content: space-between;
+
+        div {
+            display: flex;
+            gap: 10px;
+        }
     }
 
     &__info {
@@ -113,6 +132,7 @@
 @media (max-width: 769px) {
     .job-card-list {
         width: 90%;
-        overflow-y: hidden;
+        max-height: none;
+        // overflow-y: hidden;
     }
 }

@@ -1,153 +1,175 @@
 @use '@/styles/variables' as *;
 
 .header-main {
-    position: fixed;
-    width: 98.5%;
-    background-color: white;
-    transition: box-shadow 0.3s;
+  position: fixed;
+  width: 98.5%;
+  background-color: white;
+  transition: box-shadow 0.3s;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid $primary-color;
+  border-radius: 0 0 20px 20px;
+  z-index: 1000;
+
+  &__left-box {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid $primary-color;
-    border-radius: 0 0 20px 20px;
-    z-index: 1000;
+    gap: 40px;
+  }
 
-    &__left-box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-    }
+  &__logo {
+    font-size: 30px;
+    font-weight: 900;
+    cursor: pointer;
+  }
 
-    &__logo {
-        font-size: 30px;
-        font-weight: 900;
-        cursor: pointer;
-    }
-
-    &__navigate {
-        ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        li {
-            cursor: pointer;
-
-            &:hover {
-                color: $primary-color;
-                transition: all 0.3s;
-            }
-        }
-    }
-
-    &__right-box {
-
-        button {
-            background-color: $primary-color;
-            color: white;
-            padding: 15px 40px;
-            border-radius: 7px;
-            border: 1px solid $primary-color;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: white;
-            color:  $primary-color;
-            transition: all 0.3s;
-        }
-    }
-
-    &__bottom-line {
-        width: 100%;
-        height: 30px;
-        padding-top: 90px;
-        background-color: $primary-color;
-    }
-}
-
-.header {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-  
-    &__container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  
-    &__logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #333;
-    }
-  
-    &__menu-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-  
-      &:focus {
-        outline: 2px solid #007bff;
-      }
-    }
-  
-    &__menu-icon {
-      display: block;
-      width: 25px;
-      height: 2px;
-      background-color: #333;
-      position: relative;
-  
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        width: 25px;
-        height: 2px;
-        background-color: #333;
-        left: 0;
-      }
-  
-      &::before {
-        top: -8px;
-      }
-  
-      &::after {
-        top: 8px;
-      }
-    }
-  
-    &__dropdown {
-      background-color: #f9f9f9;
-      border-top: 1px solid #ddd;
-      padding: 1rem 0;
-    }
-  
-    &__list {
+  &__navigate {
+    ul {
       list-style: none;
-      margin: 0;
-      padding: 0;
+      display: flex;
+      gap: 30px;
     }
-  
-    &__item {
-      padding: 0.5rem 1rem;
-    }
-  
-    &__link {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-  
+
+    li {
+      cursor: pointer;
+
       &:hover {
-        color: #007bff;
+        color: $primary-color;
+        transition: all 0.3s;
       }
     }
   }
-  
+
+  &__right-box {
+
+    button {
+      background-color: $primary-color;
+      color: white;
+      padding: 15px 40px;
+      border-radius: 7px;
+      border: 1px solid $primary-color;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: white;
+      color: $primary-color;
+      transition: all 0.3s;
+    }
+  }
+
+  &__bottom-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 150px;
+    padding-top: 90px;
+    background-color: $primary-color;
+    color: white;
+
+    h3 {
+      padding-top: 15px;
+      padding-bottom: 30px;
+    }
+  }
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+  transition: box-shadow 0.3s;
+  background-color: $hover-color;
+  border: 1px solid white;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  z-index: 1000;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    padding-left: 40px;
+  }
+
+  &__menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding-right: 20px;
+
+    &:focus {}
+  }
+
+  &__menu-icon {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: #333;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 2px;
+      background-color: #333;
+      left: 0;
+    }
+
+    &::before {
+      top: -8px;
+    }
+
+    &::after {
+      top: 8px;
+    }
+  }
+
+  &__dropdown {
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    padding: 1rem 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    padding: 0.5rem 1rem;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .job-card {
+    border: 1px solid white;
+    border-bottom-color: $primary-color;
+  }
+}

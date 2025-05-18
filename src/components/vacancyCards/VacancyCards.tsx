@@ -88,8 +88,9 @@
 import React, { useState } from 'react'
 import { FaLocationDot } from 'react-icons/fa6'
 import { FaMoneyBillWave } from 'react-icons/fa'
+import { BsBuildingsFill } from "react-icons/bs";
 import Loading from '@/components/loading/Loading'
-import Pagination from '@/components/pagination/Pagination'
+// import Pagination from '@/components/pagination/Pagination'
 import '@/components/vacancyCards/vacancyCards.scss'
 
 export interface Vacancy {
@@ -111,18 +112,18 @@ interface VacancyCardsProps {
 
 const VacancyCards: React.FC<VacancyCardsProps> = ({ vacancies, onSelectVacancy }) => {
   const [activeCardId, setActiveCardId] = useState<number | null>(null)
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  // const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const ITEMS_PER_PAGE = 3
-  const totalPages = Math.ceil(vacancies.length / ITEMS_PER_PAGE)
-  const start = (currentPage - 1) * ITEMS_PER_PAGE
-  const pageVacancies = vacancies.slice(start, start + ITEMS_PER_PAGE)
+  // const ITEMS_PER_PAGE = 3
+  // const totalPages = Math.ceil(vacancies.length / ITEMS_PER_PAGE)
+  // const start = (currentPage - 1) * ITEMS_PER_PAGE
+  // const pageVacancies = vacancies.slice(start, start + ITEMS_PER_PAGE)
 
   if (!vacancies) return <Loading />
 
   return (
     <div className="job-card-list">
-      {pageVacancies.map((vacancy) => (
+      {vacancies.map((vacancy) => (
         <div
           key={vacancy.id}
           tabIndex={0}
@@ -132,30 +133,23 @@ const VacancyCards: React.FC<VacancyCardsProps> = ({ vacancies, onSelectVacancy 
             onSelectVacancy(vacancy)
           }}
         >
-          <div className="job-card__logo">
-            <span className="job-card__logo-icon">{vacancy.companyname.slice(0, 2)}</span>
-          </div>
           <div className="job-card__details">
             <h3 className="job-card__title">{vacancy.title}</h3>
-            <p className="job-card__company">{vacancy.companyname}</p>
             <div className='job-card__info-box'>
               <div>
+                <p className="job-card__company"><BsBuildingsFill />{vacancy.companyname}</p>
                 <p className="job-card__location"><FaLocationDot /> {vacancy.location}</p>
                 <p className="job-card__salary"><FaMoneyBillWave /> {vacancy.salary}</p>
-              </div>
-              <div className="job-card__info">
-                <span className="job-card__vacancy">Vacancies: {vacancy.vacancies ?? 'N/A'}</span>
-                <span className="job-card__deadline">Deadline: {vacancy.deadline ?? '—'}</span>
               </div>
             </div>
           </div>
         </div>
       ))}
-      <Pagination
+      {/* <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
-      />
+      /> */}
     </div>
   )
 }
