@@ -86,8 +86,8 @@
 // export default CompanyCards
 
 import React, { useState } from 'react'
-import { FaLocationDot } from 'react-icons/fa6'
-import { FaMoneyBillWave } from 'react-icons/fa'
+// import { FaLocationDot } from 'react-icons/fa6'
+// import { FaMoneyBillWave } from 'react-icons/fa'
 import { BsBuildingsFill } from "react-icons/bs";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { GrFormView } from "react-icons/gr";
