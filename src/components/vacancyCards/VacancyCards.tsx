@@ -89,6 +89,8 @@ import React, { useState } from 'react'
 import { FaLocationDot } from 'react-icons/fa6'
 import { FaMoneyBillWave } from 'react-icons/fa'
 import { BsBuildingsFill } from "react-icons/bs";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
+import { GrFormView } from "react-icons/gr";
 import Loading from '@/components/loading/Loading'
 // import Pagination from '@/components/pagination/Pagination'
 import '@/components/vacancyCards/vacancyCards.scss'
@@ -102,6 +104,7 @@ export interface Vacancy {
   description: string;
   vacancies?: number;
   deadline?: string;
+  email: string;
 }
 
 interface VacancyCardsProps {
@@ -112,12 +115,25 @@ interface VacancyCardsProps {
 
 const VacancyCards: React.FC<VacancyCardsProps> = ({ vacancies, onSelectVacancy }) => {
   const [activeCardId, setActiveCardId] = useState<number | null>(null)
+  const [bookmarkedIds, setBookmarkedIds] = useState<Set<number>>(new Set())
   // const [currentPage, setCurrentPage] = useState<number>(1)
 
   // const ITEMS_PER_PAGE = 3
   // const totalPages = Math.ceil(vacancies.length / ITEMS_PER_PAGE)
   // const start = (currentPage - 1) * ITEMS_PER_PAGE
   // const pageVacancies = vacancies.slice(start, start + ITEMS_PER_PAGE)
+
+  const toggleBookmark = (id: number) => {
+    setBookmarkedIds(prev => {
+      const updated = new Set(prev)
+      if (updated.has(id)) {
+        updated.delete(id)
+      } else {
+        updated.add(id)
+      }
+      return updated
+    })
+  }
 
   if (!vacancies) return <Loading />
 
@@ -134,12 +150,24 @@ const VacancyCards: React.FC<VacancyCardsProps> = ({ vacancies, onSelectVacancy 
           }}
         >
           <div className="job-card__details">
-            <h3 className="job-card__title">{vacancy.title}</h3>
-            <div className='job-card__info-box'>
+            <div className='job-card__left-box'>
+              <div className='job-card__logo-box'>
+                <span className="job-card__logo-icon">IC</span>
+              </div>
+              <div className="job-card__info-box">
+                <h3 className="job-card__title">{vacancy?.title}</h3>
+                <p className="job-card__company"><BsBuildingsFill />{vacancy?.companyname}</p>
+              </div>
+            </div>
+            <div className="job-card__view-box">
+              <div onClick={(e) => {
+                e.stopPropagation(); 
+                toggleBookmark(vacancy.id)
+              }}>
+                {bookmarkedIds.has(vacancy.id) ? <FaBookmark /> : <FaRegBookmark />}
+              </div>
               <div>
-                <p className="job-card__company"><BsBuildingsFill />{vacancy.companyname}</p>
-                <p className="job-card__location"><FaLocationDot /> {vacancy.location}</p>
-                <p className="job-card__salary"><FaMoneyBillWave /> {vacancy.salary}</p>
+                <GrFormView /> <span> 126</span>
               </div>
             </div>
           </div>

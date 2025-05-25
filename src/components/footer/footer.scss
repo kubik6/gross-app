@@ -3,13 +3,11 @@
     color: #ffffff;
     font-family: sans-serif;
     padding: 2rem;
+    margin-top: 30px;
 
-    /* --- Top Section --- */
     &__top {
         display: flex;
         justify-content: center;
-        align-items: center;
-        // flex-wrap: wrap;
         gap: 2rem;
         margin-bottom: 2rem;
     }

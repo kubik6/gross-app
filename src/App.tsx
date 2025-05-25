@@ -9,6 +9,7 @@ import Home from '@/pages/home/Home'
 import Faq from '@/components/faq/Faq'
 
 import '@/App.css'
+import About from '@/pages/about/About'
 // import UserRegister from '@/pages/userRegister/UserRegister'
 // import CompanyRegister from '@/pages/companyRegister/CompanyRegister'
 // import CompanyCabinet from '@/pages/companyCabinet/CompanyCabinet'
@@ -22,6 +23,7 @@ function App() {
           <Route path='/' element={<Home />} />
           {/* <Route path='/admin' element={<Admin />} /> */}
           <Route path='/faq' element={<Faq />} />
+          <Route path='/about' element={<About/>}/>
           {/* <Route path='/vacancy/:id' element={<JobDetail />} /> */}
           <Route path='/*' element={<Home />} />
         </Route>

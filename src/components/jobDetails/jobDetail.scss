@@ -17,7 +17,7 @@
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 800px;
-  margin: 15px auto;
+  margin: 15px;
 
   &__header {
     display: flex;
@@ -29,8 +29,10 @@
   }
 
   &__company {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
   &__info {

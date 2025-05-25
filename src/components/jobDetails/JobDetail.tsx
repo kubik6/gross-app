@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { useSelector } from 'react-redux';
 // import { RootState } from '@/store/store';
 import '@/components/jobDetails/JobDetail.scss';
@@ -10,6 +10,8 @@ interface JobDetailProps {
 }
 
 const JobDetail: React.FC<JobDetailProps> = ({ vacancy }) => {
+
+  const [showEmail, setShowEmail] = useState<boolean>(false)
   // const { selectedVacancy, detailLoading, error } = useSelector((state: RootState) => state.vacancies);
 
   // if (detailLoading) {
@@ -35,6 +37,18 @@ const JobDetail: React.FC<JobDetailProps> = ({ vacancy }) => {
           <div className="job-detail__info">
             <h2 className="job-detail__name">{vacancy?.companyname}</h2>
           </div>
+          <div>
+            {showEmail ? (
+              <span className='job-detail__apply-email'>{vacancy?.email}</span>
+            ) : (
+              <button
+                className='job-detail__apply-btn'
+                onClick={() => setShowEmail(true)}
+              >
+                Apply Now
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -50,9 +64,7 @@ const JobDetail: React.FC<JobDetailProps> = ({ vacancy }) => {
         <h3 className="job-detail__title">Position Summary</h3>
         <p>{vacancy?.description}</p>
       </div>
-      <div>
-        <button className='job-detail__apply-btn'>Apply Now</button>
-      </div>
+
     </div>
   );
 };
