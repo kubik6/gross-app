@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import '@/components/mainSearch/mainSearch.scss';
-import { JobCategories } from '@/enums/JobCategories'; // adjust the import path
-import { useSelector } from 'react-redux';
+import { JobCategories } from '@/enums/JobCategories'; 
 
 const options = [
   { value: '', label: 'Select a category' },
@@ -16,7 +15,6 @@ export default function SearchWithSelect() {
   const [selected, setSelected] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-   const { searchTerm } = useSelector((state: any) => state.vacancies);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

@@ -26,7 +26,6 @@ const VacancyCards: React.FC<VacancyCardsProps> = ({ showOnlyBookmarked = false,
     vacancies,
     selectedVacancy,
     listLoading,
-    detailLoading,
     error,
     bookmarkedIds,
   } = useSelector((state: RootState) => state.vacancies);

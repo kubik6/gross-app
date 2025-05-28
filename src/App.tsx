@@ -7,7 +7,6 @@ import Faq from '@/pages/faq/Faq'
 import '@/App.css'
 import About from '@/pages/about/About'
 import Favorites from '@/pages/favorites/Favorites'
-import JobDetail from './components/jobDetails/JobDetail'
 import JobDetailPage from './pages/jobDetailPage/JobDetailPage'
 
 function App() {

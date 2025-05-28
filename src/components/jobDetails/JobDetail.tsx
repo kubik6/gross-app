@@ -4,14 +4,12 @@ import '@/components/jobDetails/JobDetail.scss';
 import { AppDispatch, RootState } from '@/store/store';
 import { useParams } from 'react-router-dom';
 import { clearSelectedVacancy, getVacancyById } from '@/slices/vacansySlice';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const JobDetail: React.FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const vacancy = useSelector((state: RootState) => state.vacancies.selectedVacancy);
   const [showEmail, setShowEmail] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 769px)");
 
   useEffect(() => {
     if (id) dispatch(getVacancyById(Number(id)));
