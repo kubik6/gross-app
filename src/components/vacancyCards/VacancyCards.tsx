@@ -17,9 +17,10 @@ import { useNavigate } from 'react-router-dom';
 type VacancyCardsProps = {
   showOnlyBookmarked?: boolean;
   isMobile?: boolean;
+  basePath?: 'job' | 'favorites';
 };
 
-const VacancyCards: React.FC<VacancyCardsProps> = ({ showOnlyBookmarked = false, isMobile = false }) => {
+const VacancyCards: React.FC<VacancyCardsProps> = ({ showOnlyBookmarked = false, isMobile = false, basePath = '' }) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const {
@@ -48,15 +49,12 @@ const VacancyCards: React.FC<VacancyCardsProps> = ({ showOnlyBookmarked = false,
     ? vacancies.filter((v) => bookmarkedIds.includes(v.id))
     : vacancies;
 
-  if (showOnlyBookmarked && filteredVacancies.length === 0) {
-    return <div className="no-bookmarks">You don't have any bookmarks yet.</div>;
-  }
-
-   const handleClick = (id: number) => {
+  const handleClick = (id: number) => {
     if (isMobile) {
       navigate(`/gross-app/vacancy/${id}`);
     } else {
       dispatch(getVacancyById(id));
+      navigate(`/gross-app/${basePath}/${id}`, { replace: true });
     }
   };
 
@@ -88,6 +86,7 @@ const VacancyCards: React.FC<VacancyCardsProps> = ({ showOnlyBookmarked = false,
                   dispatch(toggleBookmark(v.id));
                 }}
               >
+                <span className="job-card__helper-view">This is a helper message</span>
                 {bookmarkedIds.includes(v.id) ? <FaBookmark /> : <FaRegBookmark />}
               </div>
               <div><GrFormView /> <span>126</span></div>

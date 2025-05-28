@@ -3,6 +3,8 @@ import JobDetail from '@/components/jobDetails/JobDetail';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store/store';
 import { clearSelectedVacancy } from '@/slices/vacansySlice';
+import { TiArrowBack } from "react-icons/ti";
+import '@/pages/jobDetailPage/jobDetailPage.scss'
 
 const JobDetailPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,7 +18,7 @@ const JobDetailPage: React.FC = () => {
           window.history.back();
         }}
       >
-        ← Back
+        <TiArrowBack /> Back
       </button>
       <JobDetail />
     </div>

@@ -1,10 +1,16 @@
 .favorites-page {
     width: 90%;
+    min-height: 60vh;
+    margin: auto;
+    // padding-bottom: 50px;
 
     &__title {
         width: 100%;
-        text-align: center;
-        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 20px;
     }
 
     &__content {
@@ -27,13 +33,6 @@
     width: 100%;
 }
 
-.back-button {
-    border: none;
-    background-color: white;
-    padding-left: 10px;
-    padding-top: 86px;
-}
-
 .test {
     width: 90%;
     margin: auto;
@@ -41,8 +40,19 @@
     justify-content: center;
 }
 
+.no-bookmarks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 100%;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+
 @media (max-width: 768px) {
-  .favorites-page {
-    padding-top: 70px;
-  }
+    .favorites-page {
+        padding-top: 70px;
+    }
 }

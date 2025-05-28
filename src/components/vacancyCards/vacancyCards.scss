@@ -31,6 +31,7 @@
     scrollbar-width: thin;
     /* For Firefox */
     scrollbar-color: rgba(32, 129, 66, 0.2) transparent;
+    overflow-x: hidden;
 }
 
 .job-card {
@@ -142,6 +143,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
+        // position: relative;
 
         div:last-child {
             display: flex;
@@ -174,20 +176,34 @@
             margin-left: 0.2rem;
         }
     }
+
+    &__helper-view {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        position: absolute;
+        top: -20px;
+        left: 70%;
+        background: #333;
+        color: #fff;
+        padding: 6px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+        z-index: 10;
+    }
+
+    .job-card__view-box>div:hover .job-card__helper-view {
+        visibility: visible;
+        opacity: 1;
+    }
+
 }
 
-.no-bookmarks {
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    font-size: 1.2rem;
-    color: #888;
-}
+
 
 @media (max-width: 769px) {
     .job-card-list {
-        width: 90%;
+        width: auto;
         max-height: none;
-        // overflow-y: hidden;
     }
 }

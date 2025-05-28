@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import '@/components/header/header.scss'
@@ -11,6 +11,7 @@ const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate()
   const isMobile = useMediaQuery("(max-width: 769px)")
+  const menuRef = useRef<HTMLDivElement>(null);
 
 
   const toggleMenu = () => {
@@ -21,6 +22,22 @@ const Header: React.FC = () => {
     navigate(path);
     setMenuOpen(false);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuOpen]);
 
   return !isMobile ? (
     <>
@@ -55,7 +72,7 @@ const Header: React.FC = () => {
           </button>
         </div>
         {menuOpen && (
-          <nav className="header__dropdown">
+          <nav className="header__dropdown" ref={menuRef}>
             <ul className="header__list">
               <li className="header__item" onClick={() => handleNavigate('/gross-app/')}>Vakansiyalar</li>
               <li className="header__item" onClick={() => handleNavigate('/gross-app/faq')}>FAQ</li>

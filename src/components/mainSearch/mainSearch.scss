@@ -3,8 +3,7 @@
 .search-select {
   width: 90%;
   margin: auto;
-  padding: 1rem;
-  padding-left: 48px;
+  padding: 1rem 1rem 1rem 48px;
   display: flex;
   gap: 12px;
   color: $text-color;
@@ -103,5 +102,24 @@
       color: $primary-color;
       font-weight: 600;
     }
+  }
+}
+
+@media (max-width: 769px) {
+  .search-select {
+   flex-direction: column;
+   margin: 0;
+   padding: 1rem;
+  }
+
+  .search-select__input {
+    width: 95%;
+    max-width: none;
+    margin-bottom: 12px;
+  }
+
+  .search-select__dropdown {
+    width: 100%;
+    max-width: none;
   }
 }

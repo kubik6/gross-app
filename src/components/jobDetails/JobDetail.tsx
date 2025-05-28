@@ -1,15 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import '@/components/jobDetails/JobDetail.scss';
 import { AppDispatch, RootState } from '@/store/store';
 import { useParams } from 'react-router-dom';
-import { clearSelectedVacancy, getVacancyById } from '@/slices/vacansySlice';
+import { clearSelectedVacancy, getVacancyById, showEmail } from '@/slices/vacansySlice';
+import Loading from '@/components/loading/Loading';
 
 const JobDetail: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id?: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const vacancy = useSelector((state: RootState) => state.vacancies.selectedVacancy);
-  const [showEmail, setShowEmail] = useState(false);
+  const emailShownIds = useSelector((state: RootState) => state.vacancies.emailShownIds);
+  const detailLoading = useSelector((state: RootState) => state.vacancies.detailLoading);
+  // const [showEmail, setShowEmail] = useState(false);
+
+
+  const isEmailShown = vacancy ? emailShownIds.includes(vacancy.id) : false;
+
+  const handleShowEmail = () => {
+    if (vacancy) dispatch(showEmail(vacancy.id));
+  };
 
   useEffect(() => {
     if (id) dispatch(getVacancyById(Number(id)));
@@ -19,25 +29,18 @@ const JobDetail: React.FC = () => {
     };
   }, [dispatch, id]);
 
+  if (detailLoading) return <Loading />;
   if (!vacancy) return <div className="job-detail-empty">Select a vacancy to see details</div>;
 
   return (
     <div className="job-detail">
-      {/* {isMobile && (
-        <button
-          className="back-button"
-          onClick={() => window.history.back()}
-        >
-          ← Back
-        </button>
-      )} */}
       <header className="job-detail__header">
         <div className="job-detail__company">
           <h2 className="job-detail__name">{vacancy.companyname}</h2>
-          {showEmail ? (
+          {isEmailShown ? (
             <span className='job-detail__apply-email'>{vacancy.email}</span>
           ) : (
-            <button className='job-detail__apply-btn' onClick={() => setShowEmail(true)}>Apply Now</button>
+            <button className='job-detail__apply-btn' onClick={handleShowEmail}>Apply Now</button>
           )}
         </div>
       </header>

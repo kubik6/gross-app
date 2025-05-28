@@ -8,6 +8,7 @@ interface VacancyState {
   detailLoading: boolean;
   error: string | null;
   bookmarkedIds: number[];
+  emailShownIds: number[];
 }
 
 const initialState: VacancyState = {
@@ -18,6 +19,9 @@ const initialState: VacancyState = {
   error: null,
   bookmarkedIds: typeof window !== 'undefined'
     ? JSON.parse(localStorage.getItem('bookmarkedIds') || '[]')
+    : [],
+  emailShownIds: typeof window !== 'undefined'
+    ? JSON.parse(sessionStorage.getItem('emailShownIds') || '[]')
     : [],
 };
 
@@ -68,6 +72,23 @@ const vacancySlice = createSlice({
       state.selectedVacancy = null;
       state.error = null;
     },
+     showEmail(state, action: PayloadAction<number>) {
+      if (!state.emailShownIds.includes(action.payload)) {
+        state.emailShownIds.push(action.payload);
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('emailShownIds', JSON.stringify(state.emailShownIds));
+        }
+      }
+    },
+    hideEmail(state, action: PayloadAction<number>) {
+      const index = state.emailShownIds.indexOf(action.payload);
+      if (index !== -1) {
+        state.emailShownIds.splice(index, 1);
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('emailShownIds', JSON.stringify(state.emailShownIds));
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -104,5 +125,5 @@ const vacancySlice = createSlice({
   },
 });
 
-export const { clearSelectedVacancy } = vacancySlice.actions;
+export const { clearSelectedVacancy, showEmail, hideEmail } = vacancySlice.actions;
 export default vacancySlice.reducer;

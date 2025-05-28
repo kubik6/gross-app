@@ -3,19 +3,18 @@ import JobDetail from '@/components/jobDetails/JobDetail';
 import VacancyCards from '@/components/vacancyCards/VacancyCards';
 import '@/pages/home/home.scss';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@/store/store';
-import { clearSelectedVacancy, getVacancyById } from '@/slices/vacansySlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store/store';
+import { getVacancyById } from '@/slices/vacansySlice';
 import MainSearch from '@/components/mainSearch/MainSearch';
 import { useParams } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { selectedVacancy } = useSelector((state: RootState) => state.vacancies);
-   const { id } = useParams();
+  const { id } = useParams();
   const isMobile = useMediaQuery("(max-width: 769px)");
 
-   useEffect(() => {
+  useEffect(() => {
     if (id) {
       dispatch(getVacancyById(Number(id)));
     }
@@ -24,19 +23,8 @@ const Home: React.FC = () => {
   if (isMobile) {
     return (
       <div className="home-page">
-        {selectedVacancy ? (
-          <div className="mobile-detail">
-            <button
-              className="back-button"
-              onClick={() => dispatch(clearSelectedVacancy())}
-            >
-              ← Back
-            </button>
-            <JobDetail />
-          </div>
-        ) : (
-          <VacancyCards isMobile />
-        )}
+        <MainSearch />
+        <VacancyCards isMobile />
       </div>
     );
   }
@@ -46,7 +34,7 @@ const Home: React.FC = () => {
       <MainSearch />
       <div className="test">
         <div className="panel cards">
-          <VacancyCards />
+          <VacancyCards basePath="job"/>
         </div>
         <div className="panel detail">
           <JobDetail />

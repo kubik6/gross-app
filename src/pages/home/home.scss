@@ -35,13 +35,6 @@
     width: 100%;
 }
 
-.back-button {
-    border: none;
-    background-color: white;
-    padding-left: 10px;
-    // padding-top: 86px;
-}
-
 .test {
     width: 90%;
     margin: auto;
@@ -50,7 +43,7 @@
 }
 
 @media (max-width: 768px) {
-  .home-page {
-    padding-top: 70px;
-  }
+    .home-page {
+        padding-top: 70px;
+    }
 }
