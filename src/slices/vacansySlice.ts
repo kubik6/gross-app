@@ -1,14 +1,5 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-interface Vacancy {
-  id?: number;
-  title: string;
-  description: string;
-  salary: string;
-  location: string;
-  companyname: string;
-}
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { Vacancy, vacancies as mockVacancies } from "@/data/vacancies";
 
 interface VacancyState {
   vacancies: Vacancy[];
@@ -16,6 +7,7 @@ interface VacancyState {
   listLoading: boolean;
   detailLoading: boolean;
   error: string | null;
+  bookmarkedIds: number[];
 }
 
 const initialState: VacancyState = {
@@ -24,63 +16,61 @@ const initialState: VacancyState = {
   listLoading: false,
   detailLoading: false,
   error: null,
+  bookmarkedIds: typeof window !== 'undefined'
+    ? JSON.parse(localStorage.getItem('bookmarkedIds') || '[]')
+    : [],
 };
 
-export const getVacancies = createAsyncThunk("vacancies/getAll", async (_, { rejectWithValue }) => {
-  try {
-    const response = await axios.get("http://localhost:3000/api/vacancies");
-    return response.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response?.data || "Something went wrong");
-  }
-});
-
-export const getVacancyById = createAsyncThunk(
-  "vacancies/getById",
-  async (id: number, { rejectWithValue }) => {
+export const getVacancies = createAsyncThunk<Vacancy[], void, { rejectValue: string }>(
+  "vacancies/getAll",
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/vacancies/${id}`);
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data || "Something went wrong");
+      await new Promise((r) => setTimeout(r, 500));
+      return mockVacancies;
+    } catch {
+      return rejectWithValue("Failed to load vacancies");
     }
   }
 );
 
-export const createVacancy = createAsyncThunk("vacancies/create", async (vacancy: Vacancy, { rejectWithValue }) => {
-  try {
-    const response = await axios.post("http://localhost:3000/api/vacancies", vacancy);
-    return response.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response?.data || "Something went wrong");
+export const getVacancyById = createAsyncThunk<Vacancy, number, { rejectValue: string }>(
+  "vacancies/getById",
+  async (id, { rejectWithValue }) => {
+    try {
+      await new Promise((r) => setTimeout(r, 300));
+      const found = mockVacancies.find((v) => v.id === id);
+      if (!found) return rejectWithValue("Vacancy not found");
+      return found;
+    } catch {
+      return rejectWithValue("Failed to load vacancy detail");
+    }
   }
-});
+);
+
+export const toggleBookmark = createAsyncThunk<number, number>(
+  "vacancies/toggleBookmark",
+  async (id, { getState }) => {
+    const state = getState() as { vacancies: VacancyState };
+    const ids = new Set(state.vacancies.bookmarkedIds);
+    if (ids.has(id)) ids.delete(id);
+    else ids.add(id);
+    const updated = Array.from(ids);
+    localStorage.setItem('bookmarkedIds', JSON.stringify(updated));
+    return id;
+  }
+);
 
 const vacancySlice = createSlice({
   name: "vacancies",
   initialState,
   reducers: {
-    clearSelectedVacancy: (state) => {
+    clearSelectedVacancy(state) {
       state.selectedVacancy = null;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      // Create Vacancy
-      .addCase(createVacancy.pending, (state) => {
-        state.listLoading = true;
-        state.error = null;
-      })
-      .addCase(createVacancy.fulfilled, (state, action: PayloadAction<Vacancy>) => {
-        state.listLoading = false;
-        state.vacancies.push(action.payload);
-      })
-      .addCase(createVacancy.rejected, (state, action) => {
-        state.listLoading = false;
-        state.error = action.payload as string;
-      })
-
-      // Get All Vacancies
       .addCase(getVacancies.pending, (state) => {
         state.listLoading = true;
         state.error = null;
@@ -91,23 +81,27 @@ const vacancySlice = createSlice({
       })
       .addCase(getVacancies.rejected, (state, action) => {
         state.listLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload ?? "Unknown error";
+      })
+      .addCase(getVacancyById.pending, (state) => {
+        state.detailLoading = true;
+        state.error = null;
+      })
+      .addCase(getVacancyById.fulfilled, (state, action: PayloadAction<Vacancy>) => {
+        state.detailLoading = false;
+        state.selectedVacancy = action.payload;
+      })
+      .addCase(getVacancyById.rejected, (state, action) => {
+        state.detailLoading = false;
+        state.error = action.payload ?? "Unknown error";
+      })
+      .addCase(toggleBookmark.fulfilled, (state, action: PayloadAction<number>) => {
+        const id = action.payload;
+        const idx = state.bookmarkedIds.indexOf(id);
+        if (idx >= 0) state.bookmarkedIds.splice(idx, 1);
+        else state.bookmarkedIds.push(id);
       });
-
-      // Get Vacancy Detail
-    builder.addCase(getVacancyById.pending, (state) => {
-      state.detailLoading = true;
-      state.error = null;
-    });
-    builder.addCase(getVacancyById.fulfilled, (state, action: PayloadAction<Vacancy>) => {
-      state.detailLoading = false;
-      state.selectedVacancy = action.payload;
-    });
-    builder.addCase(getVacancyById.rejected, (state, action) => {
-      state.detailLoading = false;
-      state.error = action.payload as string;
-    });
-  }
+  },
 });
 
 export const { clearSelectedVacancy } = vacancySlice.actions;

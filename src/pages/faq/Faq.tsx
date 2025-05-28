@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Faq.scss';
+import '@/pages/faq/Faq.scss';
 
 interface FAQItem {
     question: string;

@@ -1,72 +1,60 @@
-import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
-// import { RootState } from '@/store/store';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import '@/components/jobDetails/JobDetail.scss';
-// import Loading from '@/components/loading/Loading';
-import { Vacancy } from '../vacancyCards/VacancyCards';
+import { AppDispatch, RootState } from '@/store/store';
+import { useParams } from 'react-router-dom';
+import { clearSelectedVacancy, getVacancyById } from '@/slices/vacansySlice';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-interface JobDetailProps {
-  vacancy: Vacancy | null;
-}
+const JobDetail: React.FC = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
+  const vacancy = useSelector((state: RootState) => state.vacancies.selectedVacancy);
+  const [showEmail, setShowEmail] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 769px)");
 
-const JobDetail: React.FC<JobDetailProps> = ({ vacancy }) => {
+  useEffect(() => {
+    if (id) dispatch(getVacancyById(Number(id)));
 
-  const [showEmail, setShowEmail] = useState<boolean>(false)
-  // const { selectedVacancy, detailLoading, error } = useSelector((state: RootState) => state.vacancies);
+    return () => {
+      dispatch(clearSelectedVacancy());
+    };
+  }, [dispatch, id]);
 
-  // if (detailLoading) {
-  //   return <div className="job-detail"><Loading/></div>;
-  // }
-
-  // if (error) {
-  //   return <div className="job-detail">Error: {error}</div>;
-  // }
-
-  // if (!selectedVacancy) {
-  //   return <div className="job-detail-empty">Select a vacancy to see details Or REKLAM</div>;
-  // }
-
-  if (!vacancy) {
-    return <div className="job-detail-empty">Select a vacancy to see details</div>;
-  }
+  if (!vacancy) return <div className="job-detail-empty">Select a vacancy to see details</div>;
 
   return (
     <div className="job-detail">
-      <div className="job-detail__header">
+      {/* {isMobile && (
+        <button
+          className="back-button"
+          onClick={() => window.history.back()}
+        >
+          ← Back
+        </button>
+      )} */}
+      <header className="job-detail__header">
         <div className="job-detail__company">
-          <div className="job-detail__info">
-            <h2 className="job-detail__name">{vacancy?.companyname}</h2>
-          </div>
-          <div>
-            {showEmail ? (
-              <span className='job-detail__apply-email'>{vacancy?.email}</span>
-            ) : (
-              <button
-                className='job-detail__apply-btn'
-                onClick={() => setShowEmail(true)}
-              >
-                Apply Now
-              </button>
-            )}
-          </div>
+          <h2 className="job-detail__name">{vacancy.companyname}</h2>
+          {showEmail ? (
+            <span className='job-detail__apply-email'>{vacancy.email}</span>
+          ) : (
+            <button className='job-detail__apply-btn' onClick={() => setShowEmail(true)}>Apply Now</button>
+          )}
         </div>
-      </div>
-
-      <div className="job-detail__overview">
+      </header>
+      <section className="job-detail__overview">
         <ul className="job-detail__list">
-          <li><strong>Role:</strong> {vacancy?.title}</li>
-          <li><strong>Location:</strong> {vacancy?.location}</li>
-          <li><strong>Salary:</strong> {vacancy?.salary}</li>
+          <li><strong>Role:</strong> {vacancy.title}</li>
+          <li><strong>Location:</strong> {vacancy.location}</li>
+          <li><strong>Salary:</strong> {vacancy.salary}</li>
         </ul>
-      </div>
-
-      <div className="job-detail__summary">
+      </section>
+      <section className="job-detail__summary">
         <h3 className="job-detail__title">Position Summary</h3>
-        <p>{vacancy?.description}</p>
-      </div>
-
+        <p>{vacancy.description}</p>
+      </section>
     </div>
   );
 };
-
 export default JobDetail;

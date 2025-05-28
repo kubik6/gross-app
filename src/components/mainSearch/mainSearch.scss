@@ -1,103 +1,107 @@
 @use '@/styles/variables' as *;
 
-.main-search {
-  width: 40%;
-  max-width: 1200px;
-  margin-left: 70px;
-  padding: 20px;
-
-  &__container {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 26px;
-    justify-content: center ;
-    align-items: flex-end;
-  }
-
-  &__field {
-    flex: 1 1 0;
-    min-width: 0;
-  }
-
-  &__field--small {
-    flex: 0 0 auto;
-  }
+.search-select {
+  width: 90%;
+  margin: auto;
+  padding: 1rem;
+  padding-left: 48px;
+  display: flex;
+  gap: 12px;
+  color: $text-color;
 
   &__input {
-    width: 95%;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 14px;
-    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
+    min-width: 200px;
+    padding: 8px 12px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
     background-color: $input-background-color;
+    color: $text-color;
+    font-size: 1rem;
+    outline-offset: 2px;
 
     &:focus {
-      outline: none;
       border-color: $primary-color;
-    }
-
-    &::placeholder {
-      color: #999;
+      box-shadow: 0 0 4px $primary-color;
     }
   }
 
-  &__select {
+  &__dropdown {
+    position: relative;
+    max-width: 300px;
+    min-width: 200px;
+
+    &--open {
+      .search-select__options {
+        display: block;
+        max-width: 300px;
+        min-width: 200px;
+        z-index: 1000;
+      }
+    }
+  }
+
+  &__toggle {
     width: 100%;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 14px;
-    font-size: 16px;
-    background-color: $input-background-color;
-
-     &:focus {
-      outline: none;
-      border-color: $primary-color;
-    }
-
-    &::placeholder {
-      color: #999;
-    }
-  }
-
-
-
-  &__button {
-    flex: 0 0 auto;
-    padding: 12px 25px;
-    background-color: $primary-color;
-    color: white;
-    border: none;
-    border-radius: 14px;
-    font-size: 16px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    color: $text-color;
+    background: $input-background-color;
+    border: 1px solid $border-color;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s;
-    white-space: nowrap;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
 
-    &:hover {
-      background-color: $hover-color;
+    &:hover,
+    &:focus {
+      border-color: $hover-color;
+      outline: none;
     }
   }
-}
 
-@media (max-width: 768px) {
-  .main-search{
-    width: 80%;
-    margin-left: 0;
+  &__arrow {
+    font-size: 0.7rem;
+    color: $secondary-text-color;
+    margin-left: 8px;
   }
 
-  .main-search__container {
-    padding-top: 46px;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 15px;
-  }
-
-  .main-search__field {
-    flex: auto;
-  }
-
-  .main-search__button {
+  &__options {
+    display: none;
+    position: absolute;
     width: 100%;
-    text-align: center;
+    margin-top: 4px;
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    max-height: 180px;
+    overflow-y: auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__option {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: $text-color;
+
+    &:hover,
+    &:focus {
+      background-color: $hover-color;
+      color: white;
+      outline: none;
+    }
+
+    &--selected {
+      background-color: $selected-color;
+      color: $primary-color;
+      font-weight: 600;
+    }
   }
 }

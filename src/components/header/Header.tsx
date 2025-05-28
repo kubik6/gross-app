@@ -12,33 +12,30 @@ const Header: React.FC = () => {
   const navigate = useNavigate()
   const isMobile = useMediaQuery("(max-width: 769px)")
 
-  // const signIn = (): void => {
-  //   navigate('/login')
-  // }
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    setMenuOpen(false);
   };
 
   return !isMobile ? (
     <>
       <div className='header-main'>
         <div className='header-main__left-box'>
-          {/* <div className='header-main__logo' onClick={() => navigate('/')}>
-            LOGO
-          </div> */}
           <div className='header-main__navigate'>
             <ul>
-              <li onClick={() => navigate('/')}>Vakansiyalar</li>
-              <li onClick={() => navigate('/faq')}>FAQ</li>
-              <li onClick={() => navigate('/about')}>About</li>
-              {/* <li>Şirkətlər</li>
-                  <li>Vəzifələr</li> */}
+              <li onClick={() => navigate('/gross-app/')}>Vakansiyalar</li>
+              <li onClick={() => navigate('/gross-app/faq')}>FAQ</li>
+              <li onClick={() => navigate('/gross-app/favorites')}>Favorites</li>
+              <li onClick={() => navigate('/gross-app/about')}>About</li>
             </ul>
           </div>
         </div>
         <div className='header-main__right-box'>
-          {/* <button onClick={signIn}>Qeydiyyat</button> */}
         </div>
       </div>
       <div className='header-main__bottom-line'>
@@ -60,9 +57,10 @@ const Header: React.FC = () => {
         {menuOpen && (
           <nav className="header__dropdown">
             <ul className="header__list">
-              <li className="header__item" onClick={() => navigate('/')}>Vakansiyalar</li>
-              <li className="header__item" onClick={() => navigate('/faq')}>FAQ</li>
-              <li className="header__item" onClick={() => navigate('/about')}>About</li>
+              <li className="header__item" onClick={() => handleNavigate('/gross-app/')}>Vakansiyalar</li>
+              <li className="header__item" onClick={() => handleNavigate('/gross-app/faq')}>FAQ</li>
+              <li className="header__item" onClick={() => handleNavigate('/gross-app/favorites')}>Favorites</li>
+              <li className="header__item" onClick={() => handleNavigate('/gross-app/about')}>About</li>
             </ul>
           </nav>
         )}

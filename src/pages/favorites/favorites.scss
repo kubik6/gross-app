@@ -1,0 +1,48 @@
+.favorites-page {
+    width: 90%;
+
+    &__title {
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+    }
+
+    &__content {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__list {
+        width: 50%;
+    }
+
+    &__detail {
+        width: 40%;
+    }
+}
+
+.panel {
+    width: 100%;
+}
+
+.back-button {
+    border: none;
+    background-color: white;
+    padding-left: 10px;
+    padding-top: 86px;
+}
+
+.test {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .favorites-page {
+    padding-top: 70px;
+  }
+}

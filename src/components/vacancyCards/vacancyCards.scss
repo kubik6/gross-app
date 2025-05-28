@@ -176,6 +176,14 @@
     }
 }
 
+.no-bookmarks {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #888;
+}
+
 @media (max-width: 769px) {
     .job-card-list {
         width: 90%;

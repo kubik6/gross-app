@@ -1,77 +1,59 @@
-import React, { useState } from 'react'
-
-import VacancyCards, { Vacancy } from '@/components/vacancyCards/VacancyCards'
-import JobDetail from '@/components/jobDetails/JobDetail'
-import MainSearch from '@/components/mainSearch/MainSearch'
-
-import '@/pages/home/home.scss'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
-
-const vacancies: Vacancy[] = [
-  { id: 1, title: "Frontend Engineer", companyname: "Starship Labs", location: "Baku, Azerbaijan", salary: "₼ 2,500 – 3,500 / month", description: "Build React apps...", email: "example@gmail.com" },
-  { id: 2, title: "Backend Developer", companyname: "CloudWave Inc.", location: "Remote", salary: "USD 4,000 – 5,500 / month", description: "Design APIs...", email: "example@gmail.com" },
-  { id: 3, title: "UI/UX Designer", companyname: "MediCare Solutions", location: "Ganja, Azerbaijan", salary: "₼ 1,800 – 2,800 / month", description: "Create wireframes...", email: "example@gmail.com" },
-  { id: 4, title: "Mobile App Developer", companyname: "Appify Tech", location: "Sumqayıt, Azerbaijan", salary: "₼ 2,200 – 3,200 / month", description: "Develop mobile apps...", email: "example@gmail.com" },
-  { id: 5, title: "DevOps Engineer", companyname: "SecureNet", location: "Baku, Azerbaijan", salary: "₼ 3,000 – 4,500 / month", description: "Manage CI/CD...", email: "example@gmail.com" },
-  { id: 6, title: "Frontend Engineer", companyname: "Starship Labs", location: "Baku, Azerbaijan", salary: "₼ 2,500 – 3,500 / month", description: "Build React apps...", email: "example@gmail.com" },
-  { id: 7, title: "Backend Developer", companyname: "CloudWave Inc.", location: "Remote", salary: "USD 4,000 – 5,500 / month", description: "Design APIs...", email: "example@gmail.com" },
-  { id: 8, title: "UI/UX Designer", companyname: "MediCare Solutions", location: "Ganja, Azerbaijan", salary: "₼ 1,800 – 2,800 / month", description: "Create wireframes...", email: "example@gmail.com" },
-  { id: 9, title: "Mobile App Developer", companyname: "Appify Tech", location: "Sumqayıt, Azerbaijan", salary: "₼ 2,200 – 3,200 / month", description: "Develop mobile apps...", email: "example@gmail.com" },
-  { id: 10, title: "DevOps Engineer", companyname: "SecureNet", location: "Baku, Azerbaijan", salary: "₼ 3,000 – 4,500 / month", description: "Manage CI/CD...", email: "example@gmail.com" },
-];
+import React, { useEffect } from 'react';
+import JobDetail from '@/components/jobDetails/JobDetail';
+import VacancyCards from '@/components/vacancyCards/VacancyCards';
+import '@/pages/home/home.scss';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '@/store/store';
+import { clearSelectedVacancy, getVacancyById } from '@/slices/vacansySlice';
+import MainSearch from '@/components/mainSearch/MainSearch';
+import { useParams } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const { selectedVacancy } = useSelector((state: RootState) => state.vacancies);
+   const { id } = useParams();
+  const isMobile = useMediaQuery("(max-width: 769px)");
 
-  const isMobile = useMediaQuery("(max-width: 769px)")
+   useEffect(() => {
+    if (id) {
+      dispatch(getVacancyById(Number(id)));
+    }
+  }, [id, dispatch]);
 
   if (isMobile) {
     return (
       <div className="home-page">
-
         {selectedVacancy ? (
           <div className="mobile-detail">
             <button
               className="back-button"
-              onClick={() => setSelectedVacancy(null)}
+              onClick={() => dispatch(clearSelectedVacancy())}
             >
               ← Back
             </button>
-            <JobDetail vacancy={selectedVacancy} />
+            <JobDetail />
           </div>
         ) : (
-          <>
-            <MainSearch />
-            <VacancyCards
-              vacancies={vacancies}
-              selectedVacancy={selectedVacancy}
-              onSelectVacancy={setSelectedVacancy}
-            />
-          </>
+          <VacancyCards isMobile />
         )}
       </div>
     );
   }
 
-  // desktop
   return (
     <div className="home-page">
       <MainSearch />
-
       <div className="test">
         <div className="panel cards">
-          <VacancyCards
-            vacancies={vacancies}
-            selectedVacancy={selectedVacancy}
-            onSelectVacancy={setSelectedVacancy}
-          />
+          <VacancyCards />
         </div>
         <div className="panel detail">
-          <JobDetail vacancy={selectedVacancy} />
+          <JobDetail />
         </div>
       </div>
     </div>
   );
 };
 
-export default Home
+export default Home;
