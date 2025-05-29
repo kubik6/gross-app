@@ -1,0 +1,29 @@
+.marquee-widget {
+  overflow: hidden;
+  background-color: #000;
+  color: #fff;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  white-space: nowrap;
+
+  &__track {
+    display: inline-block;
+    min-width: 100%;
+    animation: marquee 20s linear infinite;
+  }
+
+  &__item {
+    display: inline-block;
+    margin: 0 2rem;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}

@@ -1,17 +1,19 @@
 @use '@/styles/variables' as *;
 
-.search-select {
-  width: 90%;
-  margin: auto;
-  padding: 1rem 1rem 1rem 48px;
+.main-search-container {
+  // width: 90%;
   display: flex;
   gap: 12px;
-  color: $text-color;
+  padding: 1rem 1rem 1rem 92px;
+  justify-content: flex-start;
+}
+
+.search-select {
+  flex: 1;
+  position: relative;
 
   &__input {
-    width: 100%;
-    max-width: 400px;
-    min-width: 200px;
+    width: 45%;
     padding: 8px 12px;
     border: 1px solid $border-color;
     border-radius: 4px;
@@ -20,23 +22,23 @@
     font-size: 1rem;
     outline-offset: 2px;
 
-    &:focus {
-      border-color: $primary-color;
+    &:focus-visible {
+      border-color: $border-color;
+      box-shadow: 0 0 4px $primary-color;
+    }
+    &:focus-visible {
+      border-color: $border-color;
       box-shadow: 0 0 4px $primary-color;
     }
   }
 
   &__dropdown {
+    width: 100%;
     position: relative;
-    max-width: 300px;
-    min-width: 200px;
 
     &--open {
       .search-select__options {
         display: block;
-        max-width: 300px;
-        min-width: 200px;
-        z-index: 1000;
       }
     }
   }
@@ -80,7 +82,7 @@
     max-height: 180px;
     overflow-y: auto;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    z-index: 10;
+    z-index: 1000;
     padding: 0;
     list-style: none;
   }
@@ -106,20 +108,17 @@
 }
 
 @media (max-width: 769px) {
-  .search-select {
-   flex-direction: column;
-   margin: 0;
-   padding: 1rem;
+  .main-search-container {
+    flex-direction: column;
+    padding: 1rem;
   }
 
   .search-select__input {
-    width: 95%;
-    max-width: none;
+    width: 92%;
     margin-bottom: 12px;
   }
 
-  .search-select__dropdown {
+  .search-select {
     width: 100%;
-    max-width: none;
   }
 }

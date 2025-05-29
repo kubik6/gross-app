@@ -1,90 +1,99 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, FC } from 'react';
 import '@/components/mainSearch/mainSearch.scss';
-import { JobCategories } from '@/enums/JobCategories'; 
+import { JobCategories } from '@/enums/JobCategories';
+import { CompaniesName } from '@/enums/CompaniesName';
 
-const options = [
-  { value: '', label: 'Select a category' },
-  ...Object.values(JobCategories).map((category) => ({
-    value: category,
-    label: category,
-  })),
-];
+// Generic option type
+interface Option {
+  value: string;
+  label: string;
+}
 
-export default function SearchWithSelect() {
-  const [search, setSearch] = useState('');
-  const [selected, setSelected] = useState('');
+// DropdownSelect uses original .search-select structure for styling
+const DropdownSelect: FC<{ options: Option[]; placeholder: string }> = ({ options, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState<string>('');
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
-    }
-
+    };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const selectedLabel = options.find(opt => opt.value === selected)?.label || 'Select a category';
+  const displayLabel = options.find(opt => opt.value === selected)?.label || placeholder;
 
   return (
-    <div className="search-select">
+    <div className="search-select" ref={dropdownRef}>
+      <div
+        className={`search-select__dropdown ${isOpen ? 'search-select__dropdown--open' : ''}`}
+      >
+        <button
+          type="button"
+          className="search-select__toggle"
+          onClick={() => setIsOpen(prev => !prev)}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+        >
+          {displayLabel} <span className="search-select__arrow">▼</span>
+        </button>
+
+        <ul className="search-select__options" role="listbox">
+          {options.map(opt => (
+            <li
+              key={opt.value}
+              className={`search-select__option ${opt.value === selected ? 'search-select__option--selected' : ''}`}
+              role="option"
+              aria-selected={opt.value === selected}
+              tabIndex={0}
+              onClick={() => { setSelected(opt.value); setIsOpen(false); }}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  setSelected(opt.value);
+                  setIsOpen(false);
+                }
+              }}
+            >
+              {opt.label}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+// MainSearch: one search input plus two DropdownSelects inline
+export const MainSearch: FC = () => {
+  const [search, setSearch] = useState('');
+
+  const jobOptions: Option[] = [
+    { value: '', label: 'Select a category' },
+    ...Object.values(JobCategories).map(c => ({ value: c, label: c })),
+  ];
+  const companyOptions: Option[] = [
+    { value: '', label: 'Select a company' },
+    ...Object.values(CompaniesName).map(c => ({ value: c, label: c })),
+  ];
+
+  return (
+    <div className="main-search-container">
       <input
         type="text"
         className="search-select__input"
         placeholder="Search..."
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        aria-label="Search input"
+        onChange={e => setSearch(e.target.value)}
+        aria-label="Search"
       />
-
-      <div
-        className={`search-select__dropdown ${isOpen ? 'search-select__dropdown--open' : ''}`}
-        ref={dropdownRef}
-      >
-        <button
-          type="button"
-          className="search-select__toggle"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-haspopup="listbox"
-          aria-expanded={isOpen}
-        >
-          {selectedLabel}
-          <span className="search-select__arrow">&#9662;</span>
-        </button>
-
-        {isOpen && (
-          <ul className="search-select__options" role="listbox">
-            {options
-              .filter(({ label }) => label.toLowerCase().includes(search.toLowerCase()))
-              .map(({ value, label }) => (
-                <li
-                  key={value}
-                  className={`search-select__option ${
-                    selected === value ? 'search-select__option--selected' : ''
-                  }`}
-                  onClick={() => {
-                    setSelected(value);
-                    setIsOpen(false);
-                  }}
-                  role="option"
-                  aria-selected={selected === value}
-                  tabIndex={0}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      setSelected(value);
-                      setIsOpen(false);
-                    }
-                  }}
-                >
-                  {label}
-                </li>
-              ))}
-          </ul>
-        )}
-      </div>
+      <DropdownSelect options={jobOptions} placeholder="Select a category" />
+      <DropdownSelect options={companyOptions} placeholder="Select a company" />
     </div>
   );
-}
+};
+
+export default MainSearch;

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-import '@/components/header/header.scss'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
+// styles and icons
+import '@/components/header/header.scss'
 import { BiMenu } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 
@@ -49,6 +49,8 @@ const Header: React.FC = () => {
               <li onClick={() => navigate('/gross-app/faq')}>FAQ</li>
               <li onClick={() => navigate('/gross-app/favorites')}>Favorites</li>
               <li onClick={() => navigate('/gross-app/about')}>About</li>
+              <li onClick={() => navigate('/gross-app/companies')}>Companies</li>
+              <li onClick={() => navigate('/gross-app/create-cv')}>Create CV</li>
             </ul>
           </div>
         </div>
@@ -78,6 +80,8 @@ const Header: React.FC = () => {
               <li className="header__item" onClick={() => handleNavigate('/gross-app/faq')}>FAQ</li>
               <li className="header__item" onClick={() => handleNavigate('/gross-app/favorites')}>Favorites</li>
               <li className="header__item" onClick={() => handleNavigate('/gross-app/about')}>About</li>
+              <li className="header__item" onClick={() => navigate('/gross-app/companies')}>Companies</li>
+              <li className="header__item" onClick={() => navigate('/gross-app/create-cv')}>Create CV</li>
             </ul>
           </nav>
         )}

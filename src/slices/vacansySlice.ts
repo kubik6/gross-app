@@ -72,7 +72,7 @@ const vacancySlice = createSlice({
       state.selectedVacancy = null;
       state.error = null;
     },
-     showEmail(state, action: PayloadAction<number>) {
+    showEmail(state, action: PayloadAction<number>) {
       if (!state.emailShownIds.includes(action.payload)) {
         state.emailShownIds.push(action.payload);
         if (typeof window !== 'undefined') {

@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import '@/components/jobDetails/JobDetail.scss';
-import { AppDispatch, RootState } from '@/store/store';
 import { useParams } from 'react-router-dom';
+
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
 import { clearSelectedVacancy, getVacancyById, showEmail } from '@/slices/vacansySlice';
+
+// components
 import Loading from '@/components/loading/Loading';
+
+// styles
+import '@/components/jobDetails/JobDetail.scss';
+
 
 const JobDetail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
@@ -12,7 +19,6 @@ const JobDetail: React.FC = () => {
   const vacancy = useSelector((state: RootState) => state.vacancies.selectedVacancy);
   const emailShownIds = useSelector((state: RootState) => state.vacancies.emailShownIds);
   const detailLoading = useSelector((state: RootState) => state.vacancies.detailLoading);
-  // const [showEmail, setShowEmail] = useState(false);
 
 
   const isEmailShown = vacancy ? emailShownIds.includes(vacancy.id) : false;

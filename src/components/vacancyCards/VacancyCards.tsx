@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// redux
 import { useDispatch, useSelector } from 'react-redux';
-import { BsBuildingsFill } from 'react-icons/bs';
-import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
-import { GrFormView } from 'react-icons/gr';
-import Loading from '@/components/loading/Loading';
 import { RootState, AppDispatch } from '@/store/store';
 import {
   clearSelectedVacancy,
@@ -11,13 +10,21 @@ import {
   getVacancyById,
   toggleBookmark,
 } from '@/slices/vacansySlice';
-import '@/components/vacancyCards/vacancyCards.scss';
-import { useNavigate } from 'react-router-dom';
 
+// components
+import Loading from '@/components/loading/Loading';
+
+// styles
+import '@/components/vacancyCards/vacancyCards.scss';
+import { BsBuildingsFill } from 'react-icons/bs';
+import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
+import { GrFormView } from 'react-icons/gr';
+
+// types
 type VacancyCardsProps = {
   showOnlyBookmarked?: boolean;
   isMobile?: boolean;
-  basePath?: 'job' | 'favorites';
+  basePath?: 'job' | 'favorites' | 'recommendations';
 };
 
 const VacancyCards: React.FC<VacancyCardsProps> = ({ showOnlyBookmarked = false, isMobile = false, basePath = '' }) => {
@@ -45,9 +52,15 @@ const VacancyCards: React.FC<VacancyCardsProps> = ({ showOnlyBookmarked = false,
   if (listLoading) return <Loading />;
   if (error) return <div className="error">{error}</div>;
 
-  const filteredVacancies = showOnlyBookmarked
+  // Filter vacancies based on bookmark or all
+  let filteredVacancies = showOnlyBookmarked
     ? vacancies.filter((v) => bookmarkedIds.includes(v.id))
     : vacancies;
+
+  // If rendering recommendations, limit to first 3
+  if (basePath === 'recommendations') {
+    filteredVacancies = filteredVacancies.slice(0, 3);
+  }
 
   const handleClick = (id: number) => {
     if (isMobile) {
