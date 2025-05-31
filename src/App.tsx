@@ -12,6 +12,7 @@ import Favorites from '@/pages/favorites/Favorites'
 import JobDetailPage from '@/pages/jobDetailPage/JobDetailPage'
 import Companies from '@/pages/companies/Companies'
 import CreateCv from '@/pages/createCv/CreateCv'
+import CompanyDetail from '@/pages/companyDetail/CompanyDetail'
 
 // styles
 import '@/App.css'
@@ -31,6 +32,7 @@ function App() {
           <Route path="/gross-app/favorites/:id?" element={<Favorites />} />
           <Route path='/gross-app/vacancy/:id' element={<JobDetailPage />} />
           <Route path="/gross-app/job/:id" element={<Home />} />
+          <Route path="/gross-app/company/:id" element={<CompanyDetail />} />
           <Route path='/*' element={<Home />} />
         </Route>
       </Routes>

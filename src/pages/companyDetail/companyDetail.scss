@@ -1,0 +1,86 @@
+@use '@/styles/variables' as *;
+
+
+.company-detail {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+
+    &__back {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        color: #555;
+        cursor: pointer;
+        margin-bottom: 1rem;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        & .company-detail__logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-right: 1rem;
+        }
+
+        & .company-detail__name {
+            font-size: 2rem;
+            margin: 0;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        & .company-detail__section {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+
+            h3 {
+                margin: 0 0 0.5rem 0;
+                font-size: 1.1rem;
+                color: #333;
+            }
+
+            p,
+            a {
+                margin: 0;
+                font-size: 1rem;
+                color: #555;
+                word-break: break-word;
+            }
+
+            a.company-detail__link {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__notfound {
+        text-align: center;
+        margin-top: 4rem;
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #666;
+        }
+    }
+
+    &__vacancies {
+        margin-top: 2rem;
+
+        
+    }
+}

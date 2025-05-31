@@ -1,0 +1,41 @@
+@use '@/styles/variables' as *;
+
+.company-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &__card {
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        padding: 16px;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            background-color: $selected-color;
+            cursor: pointer;
+        }
+
+        &--active {
+            border-left: 4px solid $primary-color;
+            background-color: $selected-color;
+        }
+    }
+
+    &__logo {
+        width: 68px;
+        height: 48px;
+        // border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

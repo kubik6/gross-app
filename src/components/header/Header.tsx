@@ -80,8 +80,8 @@ const Header: React.FC = () => {
               <li className="header__item" onClick={() => handleNavigate('/gross-app/faq')}>FAQ</li>
               <li className="header__item" onClick={() => handleNavigate('/gross-app/favorites')}>Favorites</li>
               <li className="header__item" onClick={() => handleNavigate('/gross-app/about')}>About</li>
-              <li className="header__item" onClick={() => navigate('/gross-app/companies')}>Companies</li>
-              <li className="header__item" onClick={() => navigate('/gross-app/create-cv')}>Create CV</li>
+              <li className="header__item" onClick={() => handleNavigate('/gross-app/companies')}>Companies</li>
+              <li className="header__item" onClick={() => handleNavigate('/gross-app/create-cv')}>Create CV</li>
             </ul>
           </nav>
         )}

@@ -140,10 +140,9 @@
     &__view-box {
         height: 100%;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        // position: relative;
+        gap: 15px;
 
         div:last-child {
             display: flex;
@@ -158,6 +157,17 @@
             }
         }
 
+    }
+
+    &__time-box {
+        font-size: 12px;
+        line-height: 27px;
+    }
+
+    &__bookmark-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     &__rating {

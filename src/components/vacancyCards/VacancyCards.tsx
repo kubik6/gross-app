@@ -89,20 +89,25 @@ const VacancyCards: React.FC<VacancyCardsProps> = ({ showOnlyBookmarked = false,
               </div>
               <div className="job-card__info-box">
                 <h3 className="job-card__title">{v.title}</h3>
-                <p className="job-card__company"><BsBuildingsFill /> {v.companyname}</p>
+                <p className="job-card__company"><BsBuildingsFill /> {v.companyname} <span>5 vacancy</span></p>
               </div>
             </div>
             <div className="job-card__view-box">
+              <div className="job-card__time-box">
+                <p>10.05.2025</p>
+                <p>12.09.2025</p>
+              </div>
               <div
                 onClick={(e) => {
                   e.stopPropagation();
                   dispatch(toggleBookmark(v.id));
                 }}
+                className="job-card__bookmark-box"
               >
                 <span className="job-card__helper-view">This is a helper message</span>
                 {bookmarkedIds.includes(v.id) ? <FaBookmark /> : <FaRegBookmark />}
+                <div><GrFormView /> <span>126</span></div>
               </div>
-              <div><GrFormView /> <span>126</span></div>
             </div>
           </div>
         </div>
